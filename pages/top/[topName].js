@@ -1,14 +1,16 @@
 import Container from '../../components/container';
 import Header from '../../components/header';
 import Layout from '../../components/layout';
-import { LISTAS } from '../../lib/listas';
+import { TOPS } from '../../lib/tops';
 
-export default function Lista({ listName, items }) {
+export default function Top({ topName, items }) {
   return (
     <Layout>
       <Container>
         <Header />
-        <h1 className="text-3xl mb-8">Top {listName} 2022</h1>
+        <h2 className="mb-8 text-4xl font-bold tracking-tighter leading-tight">
+          Top {topName} 2022
+        </h2>
 
         <div className="pb-16">
           {items.map((item) => (
@@ -33,9 +35,22 @@ export default function Lista({ listName, items }) {
   );
 }
 
-export async function getStaticProps() {
-  const items = LISTAS.videojuegos;
+export async function getStaticProps({ params }) {
   return {
-    props: { listName: 'videojuegos', items },
+    props: { topName: params.topName, items: TOPS[params.topName] },
+  };
+}
+
+export async function getStaticPaths() {
+  const lists = Object.keys(TOPS);
+  return {
+    paths: lists.map((topName) => {
+      return {
+        params: {
+          topName,
+        },
+      };
+    }),
+    fallback: false,
   };
 }

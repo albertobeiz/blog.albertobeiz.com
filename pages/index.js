@@ -1,9 +1,9 @@
 import Container from '../components/container';
 import MoreStories from '../components/more-stories';
-import Intro from '../components/intro';
 import Layout from '../components/layout';
 import { getAllPosts } from '../lib/api';
 import Head from 'next/head';
+import Header from '../components/header';
 
 export default function Index({ allPosts }) {
   return (
@@ -13,7 +13,7 @@ export default function Index({ allPosts }) {
           <title>Alberto Beiz</title>
         </Head>
         <Container>
-          <Intro />
+          <Header />
           {<MoreStories posts={allPosts} />}
         </Container>
       </Layout>
