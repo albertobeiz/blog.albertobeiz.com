@@ -14,9 +14,9 @@ export default function Top({ topName, items }) {
 
         <div className="pb-16">
           {items.map((item) => (
-            <div key={item.name} className="flex items-center space-x-4">
+            <div key={item.name} className="flex items-center space-x-4 mb-2">
               <div>
-                <img className="object-contain w-24 h-24" src={item.image} />
+                <img className="object-cover w-20 h-20" src={item.image} />
               </div>
               <div>
                 <h2 className="text-2xl">{item.name}</h2>
@@ -24,7 +24,7 @@ export default function Top({ topName, items }) {
                   <span className="text-md text-gray-500 mr-1">
                     {item.month}
                   </span>
-                  - {item.comment}
+                  {item.comment && '-'} {item.comment}
                 </p>
               </div>
             </div>
