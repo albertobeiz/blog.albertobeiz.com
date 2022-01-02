@@ -8,14 +8,22 @@ import Layout from '../../components/layout';
 import { getPostBySlug, getAllPosts } from '../../lib/api';
 import PostTitle from '../../components/post-title';
 import Head from 'next/head';
-import { CMS_NAME } from '../../lib/constants';
 import markdownToHtml from '../../lib/markdownToHtml';
+import Prism from 'prismjs';
+import { useEffect } from 'react';
+import 'prismjs/components/prism-markup-templating.js';
+import 'prismjs/components/prism-php';
 
 export default function Post({ post, preview }) {
   const router = useRouter();
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
   }
+
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
+
   return (
     <Layout preview={preview}>
       <Container>
@@ -27,7 +35,7 @@ export default function Post({ post, preview }) {
             <article className="mb-32">
               <Head>
                 <title>{post.title} | Alberto Beiz</title>
-                <meta property="og:image" content={post.ogImage.url} />
+                <meta property="og:image" content={post.coverImage} />
               </Head>
               <PostHeader
                 title={post.title}
