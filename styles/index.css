@@ -34,3 +34,41 @@ code.language-php {
 .markdown-styles_markdown__h_8de ul {
   list-style: disc;
 }
+
+.markdown-styles_markdown__h_8de #contenido-del-post {
+  position: fixed;
+  right: 0;
+  top: 78px;
+  font-size: 14px;
+  font-weight: bold;
+  padding-right: 40px;
+}
+
+.markdown-styles_markdown__h_8de #contenido-del-post + ul {
+  position: fixed;
+  right: 0;
+  top: 110px;
+  font-size: 12px;
+  list-style-type: none !important;
+  max-width: 170px;
+  padding-right: 20px;
+}
+
+.markdown-styles_markdown__h_8de #contenido-del-post + ul ul {
+  list-style-type: none !important;
+  padding-left: 16px;
+  margin: 0;
+  list-style: disc !important;
+  font-size: 10px;
+}
+
+.markdown-styles_markdown__h_8de #contenido-del-post + ul a {
+  text-decoration: none !important;
+}
+
+@media only screen and (max-width: 1059px) {
+  .markdown-styles_markdown__h_8de #contenido-del-post,
+  .markdown-styles_markdown__h_8de #contenido-del-post + ul {
+    display: none;
+  }
+}

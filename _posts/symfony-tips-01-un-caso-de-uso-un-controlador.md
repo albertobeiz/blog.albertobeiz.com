@@ -2,11 +2,14 @@
 title: 'Symfony Tips #01 - Un Caso de Uso → Un Controlador'
 coverImage: '/assets/blog/symfony.svg'
 date: '2022-01-01'
+tags:
+  - 'symfony'
+  - 'symtony tips'
 ---
 
-🖥 **Symfony Tips:** Quick and practical tricks to develop solid backend systems.
+### Contenido del Post
 
-### This is OK
+# This is OK
 
 ```php
 class UserController
@@ -33,7 +36,7 @@ class UserController
 }
 ```
 
-### This is better
+# This is better
 
 ```php
 class Get_UsersList
@@ -57,7 +60,7 @@ class Post_DmUser
 }
 ```
 
-### Why?
+# Why?
 
 Take a look at this structure:
 ![Captura de pantalla 2021-05-12 a las 14.24.14.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1620822273347/N9fUVQwj6.png)
@@ -75,4 +78,4 @@ Now we know it's not too big, 7 use cases, and that it's a Tweeter like app. All
 Next Tip ->
 [Symfony Tips #02 - Use folders to group your Use Cases](https://blog.albertobeiz.com/symfony-tips-02-use-folders-to-group-your-use-cases)
 
-#### HEY! Follow me at [@albertobeiz](https://twitter.com/albertobeiz) if you found this tip useful or have any question.
+## HEY! Follow me at [@albertobeiz](https://twitter.com/albertobeiz) if you found this tip useful or have any question.

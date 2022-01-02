@@ -14,6 +14,7 @@ export default function MoreStories({ posts }) {
             coverImage={post.coverImage}
             date={post.date}
             slug={post.slug}
+            tags={post.tags}
           />
         ))}
       </div>
