@@ -1,7 +1,7 @@
 ---
 title: 'Symfony Tips #03 - Recibe las dependencias internas por constructor'
 coverImage: '/assets/blog/symfony.svg'
-date: '2022-01-03'
+date: '2022-01-04'
 ---
 
 🖥 **Symfony Tips:** Quick and practical tricks to develop solid backend systems.

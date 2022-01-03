@@ -23,6 +23,16 @@ code.language-php {
   line-height: 1 !important;
 }
 
+.markdown-styles_markdown__h_8de h1 {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.markdown-styles_markdown__h_8de p {
+  margin-top: 0.5rem !important;
+  margin-bottom: 2rem !important;
+}
+
 .markdown-styles_markdown__h_8de a {
   text-decoration: underline;
 }
@@ -32,6 +42,7 @@ code.language-php {
 }
 
 .markdown-styles_markdown__h_8de ul {
+  margin-top: 0.5rem !important;
   list-style: disc;
 }
 
@@ -39,7 +50,7 @@ code.language-php {
   position: fixed;
   right: 0;
   top: 78px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   padding-right: 40px;
 }
@@ -48,10 +59,11 @@ code.language-php {
   position: fixed;
   right: 0;
   top: 110px;
-  font-size: 12px;
+  font-size: 14px;
   list-style-type: none !important;
-  max-width: 170px;
+  width: 185px;
   padding-right: 20px;
+  margin-top: 1.5rem !important;
 }
 
 .markdown-styles_markdown__h_8de #contenido-del-post + ul ul {
