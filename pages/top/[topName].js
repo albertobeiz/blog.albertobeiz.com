@@ -3,7 +3,7 @@ import Header from '../../components/header';
 import Layout from '../../components/layout';
 import { TOPS } from '../../lib/tops';
 
-export default function Top({ topName, items }) {
+export default function Top({ topName, tiers, itemsByTier }) {
   return (
     <Layout>
       <Container>
@@ -12,32 +12,50 @@ export default function Top({ topName, items }) {
           Top {topName} 2022
         </h2>
 
-        <div className="pb-16">
-          {items.map((item) => (
-            <div key={item.name} className="flex items-center space-x-4 mb-2">
-              <div>
-                <img className="object-cover w-20 h-20" src={item.image} />
+        {tiers.map(
+          (tier) =>
+            itemsByTier[tier] && (
+              <div className="pb-8 flex">
+                <div className="flex flex-col pt-2 w-10 mr-8">
+                  <p className="text-6xl text-gray-500">{tier}</p>
+                </div>
+                {itemsByTier[tier].map((item) => (
+                  <div
+                    key={item.name}
+                    className="flex flex-col items-center justify-center mr-4"
+                  >
+                    <img
+                      className="object-cover w-20 h-20 mb-1"
+                      src={item.image}
+                    />
+
+                    <h2 className="text-sm">{item.name}</h2>
+                    <p className="text-xs text-gray-500">{item.month}</p>
+                  </div>
+                ))}
               </div>
-              <div>
-                <h2 className="text-2xl">{item.name}</h2>
-                <p>
-                  <span className="text-md text-gray-500 mr-1">
-                    {item.month}
-                  </span>
-                  {item.comment && '-'} {item.comment}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+            )
+        )}
       </Container>
     </Layout>
   );
 }
 
 export async function getStaticProps({ params }) {
+  const tiers = ['S', 'A', 'B', 'C', 'D'];
+  const items = TOPS[params.topName];
+
+  const itemsByTier = {};
+  for (const item of items) {
+    const tier = item.tier;
+    if (!itemsByTier[tier]) {
+      itemsByTier[tier] = [];
+    }
+    itemsByTier[tier].push(item);
+  }
+
   return {
-    props: { topName: params.topName, items: TOPS[params.topName] },
+    props: { topName: params.topName, itemsByTier, tiers },
   };
 }
 
