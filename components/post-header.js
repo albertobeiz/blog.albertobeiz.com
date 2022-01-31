@@ -1,13 +1,18 @@
 import DateFormatter from '../components/date-formatter';
 import PostTitle from '../components/post-title';
 
-export default function PostHeader({ title, date, tags }) {
+export default function PostHeader({ title, date, tags, collection }) {
   return (
     <>
       <PostTitle>{title}</PostTitle>
       <div className="max-w-2xl mx-auto">
         <div className="mb-6 text-sm text-gray-500">
-          <DateFormatter dateString={date} /> {tags && '-'}{' '}
+          <DateFormatter dateString={date} />
+          {collection && (
+            <span key={collection} className="px-4 pb-0.5 text-gray-500">
+              {collection}
+            </span>
+          )}
           {tags?.map((tag) => (
             <span
               key={tag}

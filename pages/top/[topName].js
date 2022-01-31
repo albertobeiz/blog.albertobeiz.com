@@ -1,6 +1,7 @@
 import Container from '../../components/container';
 import Header from '../../components/header';
 import Layout from '../../components/layout';
+import { SectionHeader } from '../../components/SectionHeader';
 import { TOPS } from '../../lib/tops';
 
 export default function Top({ topName, tiers, itemsByTier }) {
@@ -8,9 +9,7 @@ export default function Top({ topName, tiers, itemsByTier }) {
     <Layout>
       <Container>
         <Header />
-        <h2 className="mb-8 text-4xl font-bold tracking-tighter leading-tight">
-          Top {topName} 2022
-        </h2>
+        <SectionHeader>Top {topName} 2022</SectionHeader>
 
         {tiers.map(
           (tier) =>

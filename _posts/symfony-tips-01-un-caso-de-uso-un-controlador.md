@@ -2,9 +2,9 @@
 title: 'Symfony Tips #01 - Un Caso de Uso → Un Controlador'
 coverImage: '/assets/blog/symfony.svg'
 date: '2022-01-02'
+collection: 'Symfony Tips'
 tags:
   - 'symfony'
-  - 'symtony tips'
 ---
 
 # Contenido del Post

@@ -2,6 +2,7 @@
 title: 'Symfony Tips #02 - Organiza tus Casos de Uso en carpetas'
 coverImage: '/assets/blog/symfony.svg'
 date: '2022-01-03'
+collection: 'Symfony Tips'
 ---
 
 🖥 **Symfony Tips:** Quick and practical tricks to develop solid backend systems.

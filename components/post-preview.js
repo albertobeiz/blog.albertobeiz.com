@@ -2,20 +2,32 @@ import DateFormatter from '../components/date-formatter';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function PostPreview({ title, date, slug, coverImage, tags }) {
+export default function PostPreview({
+  title,
+  date,
+  slug,
+  coverImage,
+  tags,
+  collection,
+}) {
   return (
     <div className="flex space-x-4">
       <div>
         <Image src={coverImage} width={50} height={50}></Image>
       </div>
       <div>
-        <h3 className="text-xl mb-1">
+        <h3 className="text-lg tracking-tight">
           <Link as={`/posts/${slug}`} href="/posts/[slug]">
             <a className="hover:underline">{title}</a>
           </Link>
         </h3>
         <div className="text-sm mb-4 text-gray-600">
-          <DateFormatter dateString={date} /> {tags && '-'}{' '}
+          <DateFormatter dateString={date} />
+          {collection && (
+            <span key={collection} className="px-4 pb-0.5 text-gray-500">
+              {collection}
+            </span>
+          )}
           {tags?.map((tag) => (
             <span
               key={tag}

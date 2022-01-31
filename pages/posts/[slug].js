@@ -43,6 +43,7 @@ export default function Post({ post, preview }) {
                 date={post.date}
                 author={post.author}
                 tags={post.tags}
+                collection={post.collection}
               />
               <PostBody content={post.content} />
             </article>
@@ -61,6 +62,7 @@ export async function getStaticProps({ params }) {
     'tags',
     'content',
     'coverImage',
+    'collection',
   ]);
   const content = await markdownToHtml(post.content || '');
 
