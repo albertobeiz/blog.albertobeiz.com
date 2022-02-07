@@ -1,4 +1,5 @@
 ---
+draft: true
 title: 'Symfony Tips #02 - Organiza tus Casos de Uso en carpetas'
 coverImage: '/assets/blog/symfony.svg'
 date: '2022-01-03'
