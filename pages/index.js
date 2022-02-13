@@ -1,7 +1,7 @@
 import Container from '../components/container';
 import MoreStories from '../components/more-stories';
 import Layout from '../components/layout';
-import { getAllPosts, getAllPublishedPosts } from '../lib/api';
+import { getAllPosts } from '../lib/api';
 import Head from 'next/head';
 import Header from '../components/header';
 
