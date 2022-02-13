@@ -83,7 +83,7 @@ export async function getStaticPaths() {
     paths: posts.map((post) => {
       return {
         params: {
-          slug: post.slug.substring(11),
+          slug: post.slug.subString(11),
         },
       };
     }),
