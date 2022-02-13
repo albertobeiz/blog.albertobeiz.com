@@ -1,7 +1,7 @@
 import Container from '../components/container';
 import MoreStories from '../components/more-stories';
 import Layout from '../components/layout';
-import { getAllPublishedPosts } from '../lib/api';
+import { getAllPosts, getAllPublishedPosts } from '../lib/api';
 import Head from 'next/head';
 import Header from '../components/header';
 
@@ -22,7 +22,7 @@ export default function Index({ allPosts }) {
 }
 
 export async function getStaticProps() {
-  const allPosts = getAllPublishedPosts([
+  const allPosts = getAllPosts([
     'title',
     'date',
     'coverImage',
