@@ -100,11 +100,11 @@ _package.json_
 }
 ```
 
-Con esto deberíamos poder lanzar los tests tanto con **cypress open** como con desde la terminal con **cypress run**
+Con esto deberíamos poder lanzar los tests tanto con **cypress open** como con desde la terminal con **cypress run**.
 
 # Ejecutando el test
 
-Pues con todo configurado, movemos nuestro test a la carpeta correspondiente
+Pues con todo configurado, movemos nuestro test a la carpeta correspondiente:
 
 _cypress/integration/AddMovie.feature_
 
@@ -120,13 +120,13 @@ Feature: Add Movie to the list
     Then I see an empty list
 ```
 
-Y lo lanzamos
+Y lo lanzamos:
 
 ```bash
 npx cypress run
 ```
 
-¡Éxito! Ya tenemos nuestro primer test de aceptación fallando
+¡Éxito! Ya tenemos nuestro primer test de aceptación fallando.
 
 ```bash
 0 passing (768ms)
@@ -141,7 +141,7 @@ Ahora toca ir resolviendo uno por uno cada error que veamos.
 
 # Implementando los steps
 
-Vemos que no encuentra la implementación del primer step asi que vamos al lío. Creamos el archivo de steps
+Vemos que no encuentra la implementación del primer step asi que vamos al lío. Creamos el archivo de steps:
 
 _cypress/integration/AddMovie/steps.js_
 
@@ -152,19 +152,19 @@ import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 Given('I have no movies in my list', () => {});
 ```
 
-Y volvemos a lanzar el test
+Y volvemos a lanzar el test:
 
 ```bash
 npx cypress run
 ```
 
-¡Ha pasado! El mensaje de error ha cambiado
+¡Ha pasado! El mensaje de error ha cambiado.
 
 ```bash
 Error: Step implementation missing for: I visit the site
 ```
 
-De momento no tenemos mucho más que hacer por aquí. Ahora vemos que necesitamos implementar el segundo paso
+De momento no tenemos mucho más que hacer por aquí. Ahora vemos que necesitamos implementar el segundo paso.
 
 _cypress/integration/AddMovie/steps.js_
 
@@ -179,14 +179,14 @@ When('I visit the site', () => {
 });
 ```
 
-Si ejecutamos el test veremos que falla porque no puede acceder al sitio
+Si ejecutamos el test veremos que falla porque no puede acceder al sitio.
 
 ```bash
 CypressError: `cy.visit()` failed trying to load:
 http://localhost:8080/
 ```
 
-La forma más sencilla de hacer pasar este paso es crear un archivo html
+La forma más sencilla de hacer pasar este paso es crear un archivo html:
 
 _src/index.html_
 
@@ -194,7 +194,7 @@ _src/index.html_
 ¡Hola Mundo!
 ```
 
-Y ejecutar un server en local
+Y ejecutar un server en local:
 
 ```bash
 npx http-server src
@@ -206,7 +206,7 @@ Y con el server corriendo, volvermos a tirar el test.
 Error: Step implementation missing for: I see an empty list
 ```
 
-Vemos que ya el error es debido al último step, asi que lo implementamos y volvemos a lanzarlo
+Vemos que ya el error es debido al último step, asi que lo implementamos y volvemos a lanzarlo.
 
 ```js
 /// <reference types="Cypress" />
@@ -223,13 +223,13 @@ Then('I see an empty list', () => {
 });
 ```
 
-Lo cual dará el siguiente error
+Lo cual dará el siguiente error:
 
 ```bash
 AssertionError: Timed out retrying after 4000ms: Expected to find content: 'No movies in your list' but never did.
 ```
 
-Modificamos el archivo index.html para pasar el test y volvemos a lanzarlo
+Modificamos el archivo index.html para pasar el test y volvemos a lanzarlo.
 
 _src/index.html_
 
@@ -256,4 +256,4 @@ Hemos resuelto el primero sin necesidad de entrar en el ciclo de TDD (ni que est
 
 En el siguiente post vamos a crear el formulario para añadir películas y entonces si que entraremos en el mundo de los tests unitarios con Jest.
 
-Tienes el código del proyecto [en este enlace](https://github.com/albertobeiz/atdd-en-el-front) y puedes hacerme cualquier pregunta o comentario por [dm en Twitter](https://twitter.com/albertobeiz)
+Tienes el código del proyecto [en este enlace](https://github.com/albertobeiz/atdd-en-el-front) y puedes hacerme cualquier pregunta o comentario por [dm en Twitter](https://twitter.com/albertobeiz).
