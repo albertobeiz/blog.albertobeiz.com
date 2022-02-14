@@ -14,11 +14,13 @@
 
 /* Your own custom utilities */
 pre {
-  padding: 10px;
-  border-radius: 20px;
+  margin-top: -25px !important;
+  margin-bottom: 25px !important;
+  padding: 5px;
+  border-radius: 10px;
 }
 
-code.language-php {
+code {
   font-size: 14px !important;
   line-height: 1 !important;
 }
@@ -31,6 +33,7 @@ code.language-php {
 .markdown-styles_markdown__h_8de p {
   margin-top: 0.5rem !important;
   margin-bottom: 2rem !important;
+  font-size: 16px;
 }
 
 .markdown-styles_markdown__h_8de a {
@@ -83,4 +86,20 @@ code.language-php {
   .markdown-styles_markdown__h_8de #contenido-del-post + ul {
     display: none;
   }
+}
+
+blockquote {
+  border-left: 4px solid #919191;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #525558;
+  background: #fcfdff;
+  border-radius: 3px;
+}
+
+.markdown-styles_markdown__h_8de blockquote p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
