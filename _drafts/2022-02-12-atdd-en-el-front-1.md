@@ -227,3 +227,5 @@ Hemos visto como configurar todo el entorno para poder ejecutar los tests de ace
 Hemos resuelto el primero sin necesidad de entrar en el ciclo de TDD (ni que estuviera preparado 😅).
 
 En el siguiente post vamos a crear el formulario para añadir películas y entonces si que entraremos en el mundo de los tests unitarios con Jest.
+
+Tienes el código del proyecto [en este enlace](https://github.com/albertobeiz/atdd-en-el-front) y puedes hacerme cualquier pregunta o comentario por [dm en Twitter](https://twitter.com/albertobeiz)
