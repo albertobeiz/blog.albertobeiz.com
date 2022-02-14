@@ -21,15 +21,15 @@ La aplicación que voy a crear es una lista de películas. Podremos ir añadiend
 
 # El primer test de aceptación
 
-Voy a exagerarlo todo un poco y a empezar desde absolutamente cero, creando una nueva carpeta para el proyecto
+Voy a exagerarlo todo un poco y a empezar desde absolutamente cero, creando una nueva carpeta para el proyecto:
 
 ```bash
 mkdir atddd-en-el-front
 ```
 
-Dentro creamos nuestra primera feature, añadir películas, en este caso voy a hacer los test de aceptación usando lenguaje Gherkin
+Dentro creamos nuestra primera feature, añadir películas, en este caso voy a hacer los test de aceptación usando lenguaje Gherkin.
 
-Empezamos la aplicación con el escenario más sencillo, ver una lista de películas vacía
+Empezamos la aplicación con el escenario más sencillo, ver una lista de películas vacía:
 
 _AddMovie.feature_
 
@@ -51,20 +51,20 @@ Genial, ya tenemos nuestro primer test, pero...¿cómo lo ejecutamos?
 
 Necesitamos alguna herramienta que nos permita ejecutar este tipo de tests, después de investigar un poco voy a probar con Cypress.
 
-Iniciamos el proyecto node e instalamos cypress
+Iniciamos el proyecto node e instalamos cypress:
 
 ```bash
 npm init
 npm install cypress
 ```
 
-Abrimos cypress por primera vez para que nos genere las carpetas necesarias (podemos hacer click en en eliminar los archivos generados, no los necesitamos)
+Abrimos cypress por primera vez para que nos genere las carpetas necesarias (podemos hacer click en en eliminar los archivos generados, no los necesitamos):
 
 ```bash
 npx cypress open
 ```
 
-Instalamos el plugin para poder ejecutar tests escritos con Gherkin
+Instalamos el plugin para poder ejecutar tests escritos con Gherkin:
 
 ```bash
 npm install cypress-cucumber-preprocessor
@@ -100,6 +100,8 @@ _package.json_
 }
 ```
 
+Con esto deberíamos poder lanzar los tests tanto con **cypress open** como con desde la terminal con **cypress run**
+
 # Ejecutando el test
 
 Pues con todo configurado, movemos nuestro test a la carpeta correspondiente
@@ -134,6 +136,8 @@ npx cypress run
       Empty to-do list:
     Error: Step implementation missing for: I have no movies in my list
 ```
+
+Ahora toca ir resolviendo uno por uno cada error que veamos.
 
 # Implementando los steps
 
@@ -233,7 +237,7 @@ _src/index.html_
 No movies in your list
 ```
 
-¡Test en verde! Ya tenemos nuestro primer test de aceptación funcionando, y sin tirar una sola línea de código.
+¡Test en verde!
 
 ```bash
 Add Movie to the list
@@ -241,6 +245,8 @@ Add Movie to the list
 
   1 passing (4s)
 ```
+
+Ya tenemos nuestro primer test de aceptación funcionando, y sin tirar una sola línea de código.
 
 # Fin del primer post
 
