@@ -182,7 +182,15 @@ CypressError: `cy.visit()` failed trying to load:
 http://localhost:8080/
 ```
 
-La forma más sencilla de hacer pasar este paso es ejecutar un server en local
+La forma más sencilla de hacer pasar este paso es crear un archivo html
+
+_src/index.html_
+
+```html
+¡Hola Mundo!
+```
+
+Y ejecutar un server en local
 
 ```bash
 npx http-server src
@@ -211,7 +219,21 @@ Then('I see an empty list', () => {
 });
 ```
 
-¡Test en verde! Ya tenemos nuestro primer test de aceptación funcionando y sin tirar una sola línea de código.
+Lo cual dará el siguiente error
+
+```bash
+AssertionError: Timed out retrying after 4000ms: Expected to find content: 'No movies in your list' but never did.
+```
+
+Modificamos el archivo index.html para pasar el test y volvemos a lanzarlo
+
+_src/index.html_
+
+```html
+No movies in your list
+```
+
+¡Test en verde! Ya tenemos nuestro primer test de aceptación funcionando, y sin tirar una sola línea de código.
 
 ```bash
 Add Movie to the list
