@@ -1,17 +1,16 @@
 ---
-draft: true
-title: 'ATDD en el front 1'
+title: 'TDD en el front 1'
 subtitle: 'El primer test de aceptación'
 coverImage: '/assets/blog/symfony.svg'
 date: '2022-02-12'
-collection: 'ATDD en el front 1'
+collection: 'TDD en el front'
 ---
 
 ### Contenido del Post
 
-# ATDD en el front
+# TDD en el front
 
-En mi día a día practico ATDD en el backend, es un proceso que cada vez tengo más interiorizado y me sale de forma natural. Tengo mi test de aceptación que me sirve para validar mi feature y voy desarrollándola usando ciclos de TDD hasta que el test de aceptación pasa.
+En mi día a día practico TDD en el backend, es un proceso que cada vez tengo más interiorizado y me sale de forma natural. Tengo mi test de aceptación que me sirve para validar mi feature y voy desarrollándola usando ciclos de TDD hasta que el test de aceptación pasa.
 
 Pero ¿y el front? Programo el front con Angular o React normalmente y aunque intento testear las partes más importantes no soy ni de lejos igual de riguroso que en el back. Asi que voy a crear una pequeña aplicación que usaré para intentar llegar a ese punto, o al menos aprender mejores prácticas.
 
@@ -24,7 +23,7 @@ La aplicación que voy a crear es una lista de películas. Podremos ir añadiend
 Voy a exagerarlo todo un poco y a empezar desde absolutamente cero, creando una nueva carpeta para el proyecto:
 
 ```bash
-mkdir atddd-en-el-front
+mkdir tdd-en-el-front
 ```
 
 Dentro creamos nuestra primera feature, añadir películas, en este caso voy a hacer los test de aceptación usando lenguaje Gherkin.
@@ -256,4 +255,4 @@ Hemos resuelto el primero sin necesidad de entrar en el ciclo de TDD (ni que est
 
 En el siguiente post vamos a crear el formulario para añadir películas y entonces si que entraremos en el mundo de los tests unitarios con Jest.
 
-Tienes el código del proyecto [en este enlace](https://github.com/albertobeiz/atdd-en-el-front) y puedes hacerme cualquier pregunta o comentario por [dm en Twitter](https://twitter.com/albertobeiz).
+Tienes el código del proyecto [en este enlace](https://github.com/albertobeiz/tdd-en-el-front) y puedes hacerme cualquier pregunta o comentario por [dm en Twitter](https://twitter.com/albertobeiz).
