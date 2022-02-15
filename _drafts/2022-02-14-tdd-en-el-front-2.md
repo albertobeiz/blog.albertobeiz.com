@@ -175,7 +175,11 @@ Pues listo, ahora podemos tirar los tests de aceptación con:
 npm run test:e2e
 ```
 
+Y todo debería seguir en verde.
+
 # El segundo escenario
+
+Continuamos con nuestra feature. Vamos con el siguiente escenario, añadir una película a una lista vacía:
 
 _AddMovie.feature_
 
@@ -187,6 +191,68 @@ _AddMovie.feature_
     Then I see a list with:
       | id | Name   |
       | 1  | Matrix |
+```
+
+Si lanzamos los tests vemos que los dos que ya teníamos hechos pasan y que nos pide implementar el tercero:
+
+```bash
+Error: Step implementation missing for: I add a movie with name "Matrix"
+```
+
+Añadimos el step a nuestro archivo, teniendo en cuenta que el nombre de la película es un parámetro. Vamos a empezar con una implementación sencilla y luego veremos si podemos mejorarla:
+
+```js
+When('I add a movie with name {string}', (movieName) => {
+  cy.get('input[name=name]').type(movieName);
+  cy.get('button[type=submit]').click();
+});
+```
+
+Si ahora ejecutamos el test falla, que sorpresa 😅
+
+```bash
+AssertionError: Timed out retrying after 4000ms: Expected to find element: `input[name=name]`, but never found it.
+```
+
+Ahora es cuando tenemos que implementar la funcionalidad, y pasamos de "ser usuarios" a ser programadores.
+
+# El primer test unitario
+
+Lo primero que hay que decidir antes de hacer test unitarios es cual va ser nuestra unidad. Voy a empezar dividiendo la app en dos capas, voy a dejar App.js como coordinador (algo asi como capa de infraestructura en términos de Hexagonal), y voy a tener una primera capa de componentes que van a actuar de Servicios de Aplicación o Casos de Uso. Esta capa es la que voy a testear, dejando la coordinación entre casos de uso a los test de aceoptación.
+
+Vamos a verlo mejor con el primer ejemplo, voy a tener un componente para el formulario de añadir películas:
+
+```bash
+src
+├── Components
+│   └── AddMovieForm.js
+│   └── AddMovieForm.test.js
+└── App.js
+```
+
+y en AddMovieForm.test.js crear mi mi primer test
+
+```js
+import { render } from "@testing-library/react";
+
+test("should render", () => {
+  render(<AddMovieForm />);
+});
+```
+
+Para lanzarlo primero hacemos un pequeño cambio en el package.json, evitando que se quede en modo watch (para cuando desarrolles de verdad, el modo watch es maravilloso):
+```json
+"test": "react-scripts test --watchAll=false",
+```
+
+Y ahora si, lanzamos el test:
+```bash
+npm t
+```
+
+Y vemos el error:
+```bash
+ReferenceError: AddMovieForm is not defined
 ```
 
 Tienes el código del proyecto [en este enlace](https://github.com/albertobeiz/tdd-en-el-front) y puedes hacerme cualquier pregunta o comentario por [dm en Twitter](https://twitter.com/albertobeiz).
