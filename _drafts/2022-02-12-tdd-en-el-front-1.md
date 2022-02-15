@@ -1,6 +1,5 @@
 ---
 title: 'TDD en el front 1'
-subtitle: 'El primer test de aceptación'
 coverImage: '/assets/blog/symfony.svg'
 date: '2022-02-12'
 collection: 'TDD en el front'

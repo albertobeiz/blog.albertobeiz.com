@@ -1,32 +1,29 @@
 ---
-title: 'ATDD en el front 2'
-subtitle: 'Empezando el ciclo ATDD'
+title: 'TDD en el front 2'
 coverImage: '/assets/blog/symfony.svg'
 date: '2022-02-14'
-collection: 'ATDD en el front'
+collection: 'TDD en el front'
 ---
 
 ### Contenido del Post
 
-# ATDD en el front 2
+# TDD en el front 2
 
-Intro
+En el post anterior montamos todo el sistema necesario para poder tener test de aceptación, que son externos a la aplicación. ¿Sabes una ventaja de tener tests externos? Que podemos cambiar tooodo lo que queramos que si los tests siguen en verde, no hemos roto nada. Suponiendo que los tests fuesen los adecuados claro 😅.
 
-> **Aviso** - esto va a ser más un cuaderno de notas que una serie de artículos rigurosos. No esperes largas explicaciones o justificaciones sobre cada decisión tomada, estoy en modo experimentación 😅 y por supuesto no es el post de un experto en el tema.
+Y es justo lo primero que vamos a hacer, he decidido usar React para esta prueba asi que ¡a montar nuestra app!
+
+> **Aviso** - esto es más un cuaderno de notas que una serie de artículos rigurosos. No esperes largas explicaciones o justificaciones sobre cada decisión tomada, estoy en modo experimentación 😅 y por supuesto no es el post de un experto en el tema.
 
 # Nuestro primer gran refactor
 
-En esta segunda sesión de ATDD ya he decido que voy a usar React para mi aplicación. Asi que...¡toca cambio de framework!
-
-Esta es una de las grandes ventajas de los tests, podemos cambiar lo que queramos que tenemos una red de seguridad para evitar desastres.
-
-Creamos nuestra app usando create-react-app
+Vamos a empezar de nuevo, esta vez creando nuestra aplicación con create-react-app:
 
 ```bash
 npx create-react-app atdd-en-el-front
 ```
 
-Volvemos a seguir el paso anterior para dejarlo todo configurado. Instalamos cypress:
+Volvemos a seguir rápidamente el post anterior para dejarlo todo configurado. Instalamos cypress:
 
 ```bash
 npm i cypress cypress-cucumber-preprocessor
@@ -63,7 +60,7 @@ _package.json_
 }
 ```
 
-Recuperamos los steps y hacemos un pequeño cambio de puerto, ahora nuestro server va en el 3000:
+Recuperamos los steps y hacemos un pequeño cambio, el puerto de acceso a la app, ahora nuestro server va en el 3000:
 
 _cypress/integration/AddMovie/steps.js_
 
@@ -127,22 +124,63 @@ export default App;
 
 Y ya tenemos, gracias a la magia de los tests, la certeza de que lo que funcionaba en nuestro anterior proyecto, funciona en este.
 
-### Segundo test de aceptación
+# Automatizar el server para los test de aceptación
+
+Vamos a mejorar un poco nuestro tooling para no tener que estar lanzando manualmente el servidor de desarrollo. Para ello instalamos un par de utilidades:
+
+```bash
+npm i concurrently wait-on
+```
+
+Y añadimos unos cuantos scripts a nuestro package.json
+
+```json
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "pretest:cypress": "wait-on -t 30000 http-get://localhost:3000",
+    "test:cypress": "npx cypress run",
+    "test:e2e": "concurrently -p none -k --hide 0 -s first 'BROWSER=none npm start' 'npm run test:cypress'"
+  },
+```
+
+Vamos por partes. El primero es un viejo conocido ya, lanzar cypress:
+
+```bash
+"test:cypress": "npx cypress run",
+```
+
+Añadiendo el prefijo _pre_ al script anterior automáticamente se lanza este comando antes. Esperamos a que haya respuesta en la url de testing antes de lanzar cypress, hacemos esto para evitar timeouts.
+
+```bash
+"pretest:cypress": "wait-on -t 30000 http-get://localhost:3000",
+```
+
+Por último el comando de testing lanza simultaneamente el servidor y cypress (que se espera a que el servidor arranque con el _pre_).
+
+```bash
+"test:e2e": "concurrently -p none -k --hide 0 -s first 'BROWSER=none npm start' 'npm run test:cypress'"
+```
+
+- _-p none_ quita decoración.
+- _-k_ mata todos los procesos en cuanto el primero acabe (el server nunca acaba, el primero suempre es cypress)
+- _--hide 0_ oculta el output del primer comando, el servidor
+- _-s first_ hace que la salida, success o failure, del comando global sea la del primer subcomando que termine (la salida de concurrently será la de cypress)
+
+Pues listo, ahora podemos tirar los tests de aceptación con:
+
+```bash
+npm run test:e2e
+```
+
+# El segundo escenario
 
 _AddMovie.feature_
 
 ```gherkin
-Feature: Add Movie to the list
-  As a User
-  I want to add movies to a list
-  So that I can track the movies I've seen
-
-  Scenario: Empty movies list
-    Given I have no movies in my list
-    When I visit the site
-    Then I see an empty list
-
-  Scenario: Empty movies list
+  Scenario: Add a movie to empty list
     Given I have no movies in my list
     When I visit the site
     And I add a movie with name "Matrix"
@@ -151,4 +189,4 @@ Feature: Add Movie to the list
       | 1  | Matrix |
 ```
 
-Tienes el código del proyecto [en este enlace](https://github.com/albertobeiz/atdd-en-el-front) y puedes hacerme cualquier pregunta o comentario por [dm en Twitter](https://twitter.com/albertobeiz).
+Tienes el código del proyecto [en este enlace](https://github.com/albertobeiz/tdd-en-el-front) y puedes hacerme cualquier pregunta o comentario por [dm en Twitter](https://twitter.com/albertobeiz).
