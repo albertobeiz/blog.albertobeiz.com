@@ -1,21 +1,21 @@
 ---
 title: 'TDD en el front 2'
-coverImage: '/assets/blog/symfony.svg'
+coverImage: '/assets/blog/js.svg'
 date: '2022-02-14'
 collection: 'TDD en el front'
 ---
 
 ### Contenido del Post
 
-# TDD en el front 2
+# TDD en el front
 
-En el post anterior montamos todo el sistema necesario para poder tener test de aceptación, que son externos a la aplicación. ¿Sabes una ventaja de tener tests externos? Que podemos cambiar tooodo lo que queramos que si los tests siguen en verde, no hemos roto nada. Suponiendo que los tests fuesen los adecuados claro 😅.
+En el post anterior montamos todo el sistema necesario para poder tener test de aceptación, que son externos a la aplicación. ¿Sabes una ventaja de tener tests externos? Que podemos cambiar tooodo lo que queramos que si los tests siguen en verde, no hemos roto nada. Suponiendo que los tests son los adecuados claro 😅.
 
 Y es justo lo primero que vamos a hacer, he decidido usar React para esta prueba asi que ¡a montar nuestra app!
 
 > **Aviso** - esto es más un cuaderno de notas que una serie de artículos rigurosos. No esperes largas explicaciones o justificaciones sobre cada decisión tomada, estoy en modo experimentación 😅 y por supuesto no es el post de un experto en el tema.
 
-# Nuestro primer gran refactor
+# Primer gran refactor
 
 Vamos a empezar de nuevo, esta vez creando nuestra aplicación con create-react-app:
 

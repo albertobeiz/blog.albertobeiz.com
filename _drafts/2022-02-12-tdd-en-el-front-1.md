@@ -1,6 +1,6 @@
 ---
 title: 'TDD en el front 1'
-coverImage: '/assets/blog/symfony.svg'
+coverImage: '/assets/blog/js.svg'
 date: '2022-02-12'
 collection: 'TDD en el front'
 ---
