@@ -1,22 +1,41 @@
+import Link from 'next/link';
 import markdownStyles from './markdown-styles.module.css';
 
-export default function PostBody({ content, prev, next }) {
+export default function PostBody({ content, collection }) {
   return (
-    <div className="max-w-2xl mx-auto">
-      <div
-        className={markdownStyles['markdown']}
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+    <>
+      <div className="max-w-2xl mx-auto">
+        <CollectionIndex collection={collection} />
 
-      <div>
-        {prev && (
-          <Link to={`/posts/${prev.slug}`}>
-            <div className="text-gray-500">
-              <span className="block">{prev.title}</span>
-            </div>
-          </Link>
-        )}
+        <div
+          className={markdownStyles['markdown']}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+
+        <CollectionIndex collection={collection} />
       </div>
-    </div>
+    </>
+  );
+}
+
+function CollectionIndex({ collection }) {
+  return (
+    <>
+      {collection && (
+        <div className="my-8">
+          <h2 className="font-bold">{collection.title}</h2>
+
+          <ol className="list-decimal list-inside">
+            {collection.items.map((item, index) => (
+              <li key={item.title}>
+                <Link href={'/posts/' + item.slug}>
+                  <a>{item.subtitle}</a>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+    </>
   );
 }

@@ -9,8 +9,8 @@ export default function PostHeader({ title, date, tags, collection }) {
         <div className="mb-6 text-sm text-gray-500">
           <DateFormatter dateString={date} />
           {collection && (
-            <span key={collection} className="px-4 pb-0.5 text-gray-500">
-              {collection}
+            <span className="px-4 pb-0.5 text-gray-500">
+              {collection.title}
             </span>
           )}
           {tags?.map((tag) => (

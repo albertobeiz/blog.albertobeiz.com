@@ -1,5 +1,6 @@
 ---
 title: 'TDD en el front 2'
+subtitle: 'El primer test unitario'
 coverImage: '/assets/blog/js.svg'
 date: '2022-02-14'
 collection: 'TDD en el front'

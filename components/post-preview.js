@@ -24,8 +24,8 @@ export default function PostPreview({
         <div className="text-sm mb-4 text-gray-600">
           <DateFormatter dateString={date} />
           {collection && (
-            <span key={collection} className="px-4 pb-0.5 text-gray-500">
-              {collection}
+            <span key={collection.title} className="px-4 pb-0.5 text-gray-500">
+              {collection.title}
             </span>
           )}
           {tags?.map((tag) => (

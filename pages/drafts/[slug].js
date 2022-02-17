@@ -45,7 +45,7 @@ export default function Post({ post, preview }) {
                 tags={post.tags}
                 collection={post.collection}
               />
-              <PostBody content={post.content} />
+              <PostBody content={post.content} collection={post.collection} />
             </article>
           </>
         )}
@@ -57,7 +57,16 @@ export default function Post({ post, preview }) {
 export async function getStaticProps({ params }) {
   const post = getPostBySlug(
     params.slug,
-    ['title', 'date', 'slug', 'tags', 'content', 'coverImage', 'collection'],
+    [
+      'title',
+      'subtitle',
+      'date',
+      'slug',
+      'tags',
+      'content',
+      'coverImage',
+      'collection',
+    ],
     '_drafts'
   );
   const content = await markdownToHtml(post.content || '');

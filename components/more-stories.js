@@ -13,7 +13,7 @@ export default function MoreStories({ posts }) {
             coverImage={post.coverImage}
             date={post.date}
             slug={post.slug}
-            collection={post.collection}
+            collection={post.collection.title}
             tags={post.tags}
           />
         ))}
