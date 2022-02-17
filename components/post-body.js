@@ -23,7 +23,7 @@ function CollectionIndex({ collection }) {
     <>
       {collection && (
         <div className="my-6">
-          <h2 className="font-bold">{collection.title}</h2>
+          <h2 className="font-bold mb-1">{collection.title}</h2>
 
           <ol className="list-decimal list-inside">
             {collection.items.map((item) => (
