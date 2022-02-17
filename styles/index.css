@@ -25,6 +25,10 @@ code {
   line-height: 1 !important;
 }
 
+.markdown-styles_markdown__h_8de {
+  font-size: 16px !important;
+}
+
 .markdown-styles_markdown__h_8de h1 {
   font-weight: bold;
   font-size: 1.4rem;
@@ -49,32 +53,48 @@ code {
   list-style: disc;
 }
 
+.markdown-styles_markdown__h_8de ol {
+  margin-top: 0.5rem !important;
+  list-style: decimal;
+  list-style-position: inside;
+}
+
 .markdown-styles_markdown__h_8de #contenido-del-post {
   position: fixed;
   right: 0;
   top: 78px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
-  padding-right: 40px;
+  padding-right: 55px;
 }
 
 .markdown-styles_markdown__h_8de #contenido-del-post + ul {
   position: fixed;
   right: 0;
   top: 115px;
-  font-size: 14px;
+  font-size: 12px;
   list-style-type: none !important;
   width: 185px;
   padding-right: 20px;
-  margin-top: 1.5rem !important;
+  margin-top: 1rem !important;
+  line-height: 1.2;
+}
+
+.markdown-styles_markdown__h_8de #contenido-del-post + ul > li {
+  margin-top: 0.8rem !important;
 }
 
 .markdown-styles_markdown__h_8de #contenido-del-post + ul ul {
   list-style-type: none !important;
-  padding-left: 16px;
+  padding-left: 14px;
   margin: 0;
   list-style: disc !important;
+  margin-top: 0.2rem !important;
   font-size: 10px;
+}
+
+.markdown-styles_markdown__h_8de #contenido-del-post + ul ul > li {
+  margin-top: 0.2rem !important;
 }
 
 .markdown-styles_markdown__h_8de #contenido-del-post + ul a {

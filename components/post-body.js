@@ -26,10 +26,10 @@ function CollectionIndex({ collection }) {
           <h2 className="font-bold">{collection.title}</h2>
 
           <ol className="list-decimal list-inside">
-            {collection.items.map((item, index) => (
-              <li key={item.title}>
+            {collection.items.map((item) => (
+              <li key={item.title} className="text-sm">
                 <Link href={'/posts/' + item.slug}>
-                  <a className="underline text-sm">{item.subtitle}</a>
+                  <a className="text-blue-500">{item.subtitle}</a>
                 </Link>
               </li>
             ))}
