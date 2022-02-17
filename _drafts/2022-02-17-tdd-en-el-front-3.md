@@ -26,30 +26,26 @@ Algo que puede pasar, y pasa, es que nos demos cuenta de algo cuando ya tenemos 
 
 ```js
 When('I add a movie with name {string}', (movieName) => {
+  cy.intercept({ url: '/movies/', method: 'POST' }, {}).as('postMovie');
+
   cy.get('input[id=name]').type(movieName);
   cy.get('button[type=submit]').click();
 
-  cy.intercept('/movies/').as('postMovie');
   cy.wait('@postMovie')
     .its('request.body')
-    .should(
-      'deep.equal',
-      JSON.stringify({
-        name: movieName,
-      })
-    );
+    .should('deep.equal', JSON.stringify({ name: movieName }));
 });
 ```
 
-Y ahora fallará de nuevo avisándonos de que no ocurre tal cosa:
+Con esto comprobamos que se realiza la llamada, y que lleva el payload correcto.El test falla avisándonos de que no ocurre tal cosa:
 
 ```bash
 CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `postMovie`. No request ever occurred.
 ```
 
-Para implementarlo necesitamos algún mecanismo para que al enviar el formulario se realice esa llamada, pero sin la llamada http en el Componente, no queremos tener que falsear el fetch, mucho trabajo.
+Para implementarlo necesitamos algún mecanismo para que al enviar el formulario se realice esa llamada. Pero no queremos que la llamada http ocurra en el Componente, no queremos tener que doblar el fetch, mucho trabajo.
 
-La forma más sencilla que se me ocurre por ahora es pasar una función por props, tendremos que comprobar al menos tres situaciones:
+La forma más sencilla que se me ocurre por ahora es pasar una función _onSubmit_ por props, tendremos que comprobar al menos tres situaciones:
 
 1. La llamada está en curso (loader)
 2. La llamada falla
@@ -71,7 +67,7 @@ test('Shows loader on correct submit', () => {
 });
 ```
 
-Y una implementación con el mínimo código posible, no hay que preocuparse por ahora de asíncronías ni nada porque podemos hacer pasar el test usando el estado de _submitted_.
+Y hacemos una implementación con el mínimo código posible, no hay que preocuparse por ahora de asíncronías ni nada porque podemos hacer pasar el test usando el estado de _submitted_.
 
 ```js
 const AddMovieForm = () => {
@@ -95,6 +91,8 @@ const AddMovieForm = () => {
 };
 ```
 
+Y vemos el test en verde, seguimos.
+
 ## 2. La llamada falla
 
 Preparamos el test:
@@ -107,12 +105,11 @@ test('Shows error message when fails', () => {
   whenFormIsSubmitted();
 
   expect(screen.queryByText('Añadiendo...')).toBeNull();
-  expect(screen.getByText('Añadir película')).toBeInTheDocument();
   expect(screen.getByText('No se pudo añadir la película')).toBeInTheDocument();
 });
 ```
 
-Ya vemos que para hacer pasar este tendríamos que borrar el loader, lo cual haría fallar el anterior test. Necesitamos una dependencia que podamos controlar desde el test:
+Ya vemos que para hacer pasar este tendríamos que borrar el loader, lo cual haría fallar el anterior test. Necesitamos una dependencia que podamos controlar desde el test, modificamos nuestro render con una función que pasamos por props:
 
 ```js
 function givenTheComponentIsRendered(onSubmit) {
@@ -120,7 +117,7 @@ function givenTheComponentIsRendered(onSubmit) {
 }
 ```
 
-Y asi poder forzar en el test un fallo:
+Y asi poder forzar en el test un fallo. Ahora si que tenemos que pesar en la asincronía y usar el método _waitForElementToBeRemoved_ para evitar mensajes de cambios de estado fuera del método act():
 
 ```js
 test('Shows error message when fails', () => {
@@ -130,12 +127,11 @@ test('Shows error message when fails', () => {
   whenFormIsSubmitted();
 
   expect(screen.queryByText('Añadiendo...')).toBeNull();
-  expect(screen.getByText('Añadir película')).toBeInTheDocument();
   expect(screen.getByText('No se pudo añadir la película')).toBeInTheDocument();
 });
 ```
 
-Y para hacer pasar el test voy a refactorizar un poco y evitar el uso de booleanos para modelar el estado:
+Y para hacer pasar el test voy a refactorizar un poco y evitar el uso de booleanos para modelar el estado. Si ningún test anterior falla, no he roto nada:
 
 ```js
 const AddMovieForm = ({ onSubmit }) => {
@@ -177,53 +173,215 @@ Ahora vemos que falla el test anterior:
   ✓ Shows error message when fails (16 ms)
 ```
 
-Falta pasar como función una promera que no resuelva nunca:
+Falta pasar como función una promesa que no resuelva nunca:
 
 ```js
 test("Shows loader on correct submit", () => {
   givenTheComponentIsRendered(() => new Promise(() => {}));
 ```
 
-Gracias a que encapsulamos el render en una función podemos añadir parámetros por defecto y que no se rompan nuestros tests anteriores 🙌
+Gracias a que encapsulamos el render en una función podemos añadir parámetros por defecto y que no se rompan nuestros tests anteriores si fuera necesario 🙌
 
 ## 3. Todo funciona
 
 Preparamos el test del happy path:
 
 ```js
+test('Shows success message', async () => {
+  givenTheComponentIsRendered(() => Promise.resolve());
 
+  whenFormIsCorrect();
+  whenFormIsSubmitted();
+
+  await waitForElementToBeRemoved(screen.queryByText('Añadiendo...'));
+  expect(screen.getByText('¡Película Añadida!')).toBeInTheDocument();
+});
 ```
 
-Y una implementación con el mínimo código posible
+Y añadimos el control del success en el componente:
 
 ```js
+const AddMovieForm = ({ onSubmit }) => {
+  const [status, setStatus] = useState('INITIAL');
+  const [name, setName] = useState('');
 
+  const handleForm = async (e) => {
+    e.preventDefault();
+    setStatus('LOADING');
+
+    try {
+      await onSubmit();
+      setStatus('SUCCESS');
+    } catch (error) {
+      setStatus('ERROR');
+    }
+  };
+
+  return (
+    <form onSubmit={handleForm}>
+      <label htmlFor="name">Nombre</label>
+      <input id="name" value={name} onChange={(e) => setName(e.target.value)} />
+      {status !== 'INITIAL' && !name && <div>El nombre es obligatorio</div>}
+      {status !== 'LOADING' && <button type="submit">Añadir película</button>}
+      {status === 'LOADING' && <div>Añadiendo...</div>}
+      {status === 'ERROR' && <div>No se pudo añadir la película</div>}
+      {status === 'SUCCESS' && <div>¡Película Añadida!</div>}
+    </form>
+  );
+};
 ```
+
+Falta un detallito, tenemos que comprobar que se llama al _onSubmit_ con los parámetros que esperamos:
+
+```js
+test('Calls onSubmit with correct params', async () => {
+  const onSubmit = jest.fn();
+  givenTheComponentIsRendered(onSubmit);
+
+  whenFormIsCorrect();
+  whenFormIsSubmitted();
+
+  await waitForElementToBeRemoved(screen.queryByText('Añadiendo...'));
+  expect(onSubmit).toHaveBeenCalledWith({ name: 'Matrix' });
+});
+```
+
+Y lo añadimos al componente:
+
+```js
+ try {
+      await onSubmit({ name });
+      setStatus("SUCCESS");
+    } catch (error) {
+      setStatus("ERROR");
+    }
+  };
+```
+
+Y listo por ahora. Puedes practicar añadiendo más tests para que por ejemplo se limpie el input cuando todo funcione o más comprobaciones de mensajes, casi no hemos comprobado que las cosas NO aparezcan.
+
+También hay mucho refactor que hacer en los tests. Sobre todo sacar constantes y funciones para no repetir cosas como esperar a que se quite el loader por ejemplo.
 
 ## Modificando el App.js
 
-Ahora solo queda modificar el App.js para que realice la llamada con un fetch y lanzar los tests:
+Para pasar nuestro step modificamos App.js para que realice la llamada con un fetch y lanzamos los tests:
 
 ```js
+function App() {
+  return (
+    <div>
+      <AddMovieForm
+        onSubmit={({ name }) =>
+          fetch('/movies/', { method: 'POST', body: JSON.stringify({ name }) })
+        }
+      />
+      <div>No movies in your list</div>
+    </div>
+  );
+}
+```
 
+Y volvemos a ver el mismo error que al principio, que falta el tercer step:
+
+```bash
+Error: Step implementation missing for: I see a list with:
 ```
 
 ¡Éxito! Ahora podemos continuar con el último paso.
 
 # El tercer step
 
-Primero vamos a programar el step, que comprobará que se vea el número y el nombre de cada película:
+Primero vamos a programar el step, que comprobará que se vea el número y el nombre de cada película. Quitamos las cabeceras con un slice y comprobamos por cada fila:
+
+```js
+Then('I see a list with:', (dataset) => {
+  dataset.rawTable.slice(1).forEach(([index, movieName]) => {
+    cy.contains(index);
+    cy.contains(movieName);
+  });
+});
+```
+
+Podemos hacer trampa poniendo en el App.js:
+
+```js
+function App() {
+  return (
+    <div>
+      <AddMovieForm
+        onSubmit={({ name }) =>
+          fetch('/movies/', { method: 'POST', body: JSON.stringify({ name }) })
+        }
+      />
+      <div>No movies in your list</div>
+      <div>1 - Matrix</div>
+    </div>
+  );
+}
+```
+
+Y vemos que efectivamente funciona:
+
+```bash
+  Add Movie to the list
+    ✓ Empty movies list (1602ms)
+    ✓ Add a movie to empty list (1102ms)
+
+
+  2 passing (6s)
+```
+
+¡Ojalá fuera tan fácil 😅! Quitamos tanto el empty state como lo que acabamos de añadir y lanzamos los tests.
+Una vez los vemos fallar (el primer escenario fallará también), empezamos un nuevo ciclo de TDD para el componente de la lista de películas
+
+# El segundo componente
+
+Es una buena práctica empezar listando los requisitos de nuestro componente, es una lista que puede ir modificándose a medida que avancemos en el desarrollo y nos demos cuenta de que falta o sobran cosas. Mi primera lista será esta:
+
+- Cargar la lista
+- Mostrar un loader mientras se carga la lista
+- Si la carga falla mostrar mensaje
+- Si la carga funciona mostrar la lista de películas
+- Poder recargar la lista desde fuera del componente
+
+Vamos a ir caso por caso sin dar muchas explicaciones, todos menos el último son muy parecidos a los del componente anterior
+
+Cargar la lista
 
 ```js
 
 ```
 
-Y una vez lo vemos fallar, empezamos un nuevo ciclo de TDD para el componente de la lista de películas
+Mostrar un loader mientras se carga la lista
 
-# El segundo componente
+```js
 
-# Comunicando componentes
+```
+
+Si la carga falla mostrar mensaje
+
+```js
+
+```
+
+Si la carga funciona mostrar la lista de películas
+
+```js
+
+```
+
+Poder recargar la lista desde fuera del componente
+
+```js
+
+```
 
 # Fin del tercer post
+
+Pues ya tenemos nuestra lista de películas funcionando. Hemos visto como testear llamadas a una API, a pasar dependencias y controlar y testear acciones asíncronas.
+
+Después hemos listado los requisitos de nuestra lista de películas y los hemos ido implementando uno por uno.
+
+En el siguiente post terminaremos nuestra feature viendo varias formas de comunicar nuestros componentes.
 
 Tienes el código del proyecto [en este enlace](https://github.com/albertobeiz/tdd-en-el-front) y puedes hacerme cualquier pregunta o comentario por [dm en Twitter](https://twitter.com/albertobeiz).
