@@ -50,6 +50,7 @@ code {
 
 .markdown-styles_markdown__h_8de ul {
   margin-top: 0.5rem !important;
+  list-style-position: inside;
   list-style: disc;
 }
 
