@@ -22,14 +22,14 @@ function CollectionIndex({ collection }) {
   return (
     <>
       {collection && (
-        <div className="my-8">
+        <div className="my-6">
           <h2 className="font-bold">{collection.title}</h2>
 
           <ol className="list-decimal list-inside">
             {collection.items.map((item, index) => (
               <li key={item.title}>
                 <Link href={'/posts/' + item.slug}>
-                  <a>{item.subtitle}</a>
+                  <a className="underline text-sm">{item.subtitle}</a>
                 </Link>
               </li>
             ))}
