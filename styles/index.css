@@ -50,14 +50,14 @@ code {
 
 .markdown-styles_markdown__h_8de ul {
   margin-top: 0.5rem !important;
-  list-style-position: inside;
+  list-style-position: inside !important;
   list-style: disc;
 }
 
 .markdown-styles_markdown__h_8de ol {
   margin-top: 0.5rem !important;
   list-style: decimal;
-  list-style-position: inside;
+  list-style-position: inside !important;
 }
 
 .markdown-styles_markdown__h_8de #contenido-del-post {
