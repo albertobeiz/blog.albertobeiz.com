@@ -1,6 +1,6 @@
 ---
 title: 'TDD en el front 3'
-subtitle: 'Mocks y Asíncronía '
+subtitle: 'Mocks y Asíncronía'
 coverImage: '/assets/blog/js.svg'
 date: '2022-02-17'
 collection: 'TDD en el front'
@@ -33,7 +33,7 @@ When('I add a movie with name {string}', (movieName) => {
 
   cy.wait('@postMovie')
     .its('request.body')
-    .should('deep.equal', JSON.stringify({ name: movieName }));
+    .should('deep.equal', { name: movieName });
 });
 ```
 
@@ -271,9 +271,13 @@ function App() {
   return (
     <div>
       <AddMovieForm
-        onSubmit={({ name }) =>
-          fetch('/movies/', { method: 'POST', body: JSON.stringify({ name }) })
-        }
+        onSubmit={async ({ name }) => {
+          await fetch('/movies/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name }),
+          });
+        }}
       />
       <div>No movies in your list</div>
     </div>
@@ -309,9 +313,13 @@ function App() {
   return (
     <div>
       <AddMovieForm
-        onSubmit={({ name }) =>
-          fetch('/movies/', { method: 'POST', body: JSON.stringify({ name }) })
-        }
+        onSubmit={async ({ name }) => {
+          await fetch('/movies/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name }),
+          });
+        }}
       />
       <div>No movies in your list</div>
       <div>1 - Matrix</div>
@@ -660,9 +668,13 @@ function App() {
   return (
     <div>
       <AddMovieForm
-        onSubmit={({ name }) =>
-          fetch('/movies/', { method: 'POST', body: JSON.stringify({ name }) })
-        }
+        onSubmit={async ({ name }) => {
+          await fetch('/movies/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name }),
+          });
+        }}
       />
 
       <MovieList
