@@ -1,6 +1,6 @@
 ---
 title: 'TDD en el front 3'
-subtitle: 'Terminando la primera feature'
+subtitle: 'Mocks y Asíncronía '
 coverImage: '/assets/blog/js.svg'
 date: '2022-02-17'
 collection: 'TDD en el front'
@@ -8,7 +8,7 @@ collection: 'TDD en el front'
 
 ### Contenido del Post
 
-# Terminando la primera feature
+# Mocks y Asíncronía
 
 Por fin tenemos funcionando todo el sistema de testing, tanto los de aceptación con cypress y gherkin como los unitarios con jest 🥳 Ahora es cuando empezamos a coger velocidad de crucero y nuestro proceso de desarrollo será:
 
@@ -344,36 +344,337 @@ Es una buena práctica empezar listando los requisitos de nuestro componente, es
 - Si la carga funciona mostrar la lista de películas
 - Poder recargar la lista desde fuera del componente
 
-Vamos a ir caso por caso sin dar muchas explicaciones, todos menos el último son muy parecidos a los del componente anterior
+Vamos a ir caso por caso sin dar muchas explicaciones, todos menos el último son muy parecidos a los del componente anterior.
 
-Cargar la lista
+## Cargar la lista
+
+Test:
 
 ```js
+function givenTheComponentIsRendered(getMovies) {
+  render(<MovieList getMovies={getMovies} />);
+}
+
+test('Calls getMovies', () => {
+  const getMovies = jest.fn();
+  givenTheComponentIsRendered(getMovies);
+
+  expect(getMovies).toHaveBeenCalledTimes(1);
+});
+```
+
+Componente:
+
+```js
+const MovieList = ({ getMovies }) => {
+  useEffect(() => {
+    getMovies();
+  }, [getMovies]);
+
+  return <ul></ul>;
+};
+```
+
+## Mostrar un loader
+
+Test:
+
+```js
+test('Shows Loader', () => {
+  givenTheComponentIsRendered(() => new Promise(() => {}));
+  expect(screen.getByText('Cargando películas...')).toBeInTheDocument();
+});
+```
+
+Componente:
+
+```js
+const MovieList = ({ getMovies }) => {
+  useEffect(() => {
+    getMovies();
+  }, [getMovies]);
+
+  return <p>Cargando películas...</p>;
+};
+```
+
+## Fallo en la carga
+
+Test:
+
+```js
+test('Shows Load Error', async () => {
+  givenTheComponentIsRendered(() => Promise.reject());
+
+  await waitForElementToBeRemoved(screen.queryByText('Cargando películas...'));
+
+  expect(screen.getByText('No se pudo cargar la lista')).toBeInTheDocument();
+});
+```
+
+Componente:
+
+```js
+const MovieList = ({ getMovies }) => {
+  const [status, setStatus] = useState('LOADING');
+
+  useEffect(() => {
+    getMovies().catch(() => setStatus('ERROR'));
+  }, [getMovies]);
+
+  return (
+    <div>
+      {status === 'LOADING' && <p>Cargando películas...</p>}
+      {status === 'ERROR' && <p>No se pudo cargar la lista</p>}
+    </div>
+  );
+};
+```
+
+Al añadir el _catch_ falla el primer test, lo resolvemos con un _stub_ que devuelva una promesa:
+
+```js
+test("Calls getMovies", () => {
+  const getMovies = jest.fn(() => new Promise(() => {}));
+```
+
+## Mostrar películas
+
+Test:
+
+```js
+test('Shows Movie List', async () => {
+  const movies = [
+    { id: 1, name: 'Matrix' },
+    { id: 2, name: 'Dune' },
+  ];
+
+  givenTheComponentIsRendered(() => Promise.resolve(movies));
+
+  await waitForElementToBeRemoved(screen.queryByText('Cargando películas...'));
+
+  movies.forEach((movie) => {
+    expect(screen.getByText(movie.id)).toBeInTheDocument();
+    expect(screen.getByText(movie.name)).toBeInTheDocument();
+  });
+});
+```
+
+Componente:
+
+```js
+const MovieList = ({ getMovies }) => {
+  const [status, setStatus] = useState('LOADING');
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    getMovies()
+      .then((movies) => {
+        setStatus('SUCCESS');
+        setMovies(movies);
+      })
+      .catch(() => setStatus('ERROR'));
+  }, [getMovies]);
+
+  return (
+    <div>
+      {status === 'LOADING' && <p>Cargando películas...</p>}
+      {status === 'ERROR' && <p>No se pudo cargar la lista</p>}
+
+      {status === 'SUCCESS' && (
+        <ul>
+          {movies &&
+            movies.map((movie) => (
+              <li key={movie.id}>
+                <span>{movie.id}</span> - <span>{movie.name}</span>
+              </li>
+            ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+```
+
+Aqui me doy cuenta de que se me ha olvidado el caso de empty state, vamos a añadirlo a la lista y a implementarlo.
+
+## Lista vacía
+
+Test:
+
+```js
+test('Shows Empty State', async () => {
+  givenTheComponentIsRendered(() => Promise.resolve([]));
+
+  await waitForElementToBeRemoved(screen.queryByText('Cargando películas...'));
+
+  expect(screen.getByText('No hay películas añadidas')).toBeInTheDocument();
+});
+```
+
+Componente:
+
+```js
+const MovieList = ({ getMovies }) => {
+  const [status, setStatus] = useState('LOADING');
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    getMovies()
+      .then((movies) => {
+        setStatus('SUCCESS');
+        setMovies(movies);
+      })
+      .catch(() => setStatus('ERROR'));
+  }, [getMovies]);
+
+  return (
+    <div>
+      {status === 'LOADING' && <p>Cargando películas...</p>}
+      {status === 'ERROR' && <p>No se pudo cargar la lista</p>}
+
+      {status === 'SUCCESS' && (
+        <>
+          {movies.length === 0 && <p>No hay películas añadidas</p>}
+          <ul>
+            {movies &&
+              movies.map((movie) => (
+                <li key={movie.id}>
+                  <span>{movie.id}</span> - <span>{movie.name}</span>
+                </li>
+              ))}
+          </ul>
+        </>
+      )}
+    </div>
+  );
+};
+```
+
+## Recargar Películas
+
+Este es el caso más interesante, vamos a suponer que tenemos una prop _refresh_ que al pasar de false a true, hace que el componente vuelva a pedir la lista de películas.
+
+Tenemos que modificar el _given_ para que acepte la nueva prop y devuelva el método _rerender_, que se utiliza para cuando queremos volver a renderizar el mismo componente:
+
+```js
+function givenTheComponentIsRendered(getMovies, refresh = true) {
+  return render(<MovieList getMovies={getMovies} refresh={refresh} />);
+}
+```
+
+¿Seguro que es el mismo componente? Una forma fácil de verificarlo es haciendo un rerender y comprobando que no sale el loader, porque el componente ya tiene state === 'SUCCESS'
+
+```js
+test('Refreshes Movies', async () => {
+  const getMovies = jest.fn().mockResolvedValueOnce([]);
+
+  const { rerender } = givenTheComponentIsRendered(getMovies);
+
+  await waitForElementToBeRemoved(screen.queryByText('Cargando películas...'));
+  expect(screen.getByText('No hay películas añadidas')).toBeInTheDocument();
+
+  rerender(<MovieList getMovies={getMovies} refresh={false} />);
+  await waitForElementToBeRemoved(screen.queryByText('Cargando películas...'));
+});
+```
+
+🔴 Vemos que el error nos marca justamente que no se puede esperar a que se borre algo que no existe, porque es el mismo componente que ya ha pasado por el ciclo de carga:
+
+```bash
+ FAIL  src/Components/MovieList.test.js
+  ● Refreshes Movies
+
+    The element(s) given to waitForElementToBeRemoved are already removed. waitForElementToBeRemoved requires that the element(s) exist(s) before waiting for removal.
+
+      58 |
+      59 |   rerender(<MovieList getMovies={getMovies} refresh={false} />);
+    > 60 |   await waitForElementToBeRemoved(screen.queryByText("Cargando películas..."));
+```
+
+Poder hacer este tipo de experimentos es otro punto a favor de programar con TDD.
+
+Pasamos ahora a escribir el test final. Voy a dejar la explicación en comentarios:
+
+```js
+test('Refreshes Movies', async () => {
+  const movies = [
+    { id: 1, name: 'Matrix' },
+    { id: 2, name: 'Dune' },
+  ];
+
+  // Sabemos que se llamará dos veces a la función
+  const getMovies = jest
+    .fn()
+    // La primera devolvemos un array vacío
+    .mockResolvedValueOnce([])
+    // La segunda una lista con películas
+    .mockResolvedValueOnce(movies);
+
+  // Primer render normal
+  const { rerender } = givenTheComponentIsRendered(getMovies);
+
+  await waitForElementToBeRemoved(screen.queryByText('Cargando películas...'));
+  expect(screen.getByText('No hay películas añadidas')).toBeInTheDocument();
+
+  // Forzamos el refresh de las películas
+  // Hay mejores formas de hacer esto
+  // pero de momento nos vale
+  rerender(<MovieList getMovies={getMovies} refresh={false} />);
+  rerender(<MovieList getMovies={getMovies} refresh={true} />);
+  await waitForElementToBeRemoved(screen.queryByText('Cargando películas...'));
+
+  // Comprobamos que ahora si hay contenido
+  movies.forEach((movie) => {
+    expect(screen.getByText(movie.id)).toBeInTheDocument();
+    expect(screen.getByText(movie.name)).toBeInTheDocument();
+  });
+});
+```
+
+En el componente hay que modificar las props y el useEffect:
+
+```js
+const MovieList = ({ getMovies, refresh }) => {
+  const [status, setStatus] = useState("LOADING");
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    if (refresh) {
+      setStatus("LOADING");
+      getMovies()
+        .then((movies) => {
+          setStatus("SUCCESS");
+          setMovies(movies);
+        })
+        .catch(() => setStatus("ERROR"));
+    }
+  }, [getMovies, refresh]);
 
 ```
 
-Mostrar un loader mientras se carga la lista
+Y ya tenemos nuestro componente listo para ser añadido al App.js, aunque obviamente todavía no pasará el test de aceptación. ¡Ya queda poco!
 
 ```js
+function App() {
+  return (
+    <div>
+      <AddMovieForm
+        onSubmit={({ name }) =>
+          fetch('/movies/', { method: 'POST', body: JSON.stringify({ name }) })
+        }
+      />
 
-```
-
-Si la carga falla mostrar mensaje
-
-```js
-
-```
-
-Si la carga funciona mostrar la lista de películas
-
-```js
-
-```
-
-Poder recargar la lista desde fuera del componente
-
-```js
-
+      <MovieList
+        getMovies={async () => {
+          const res = await fetch('/movies/');
+          return await res.json();
+        }}
+        refresh={true}
+      ></MovieList>
+    </div>
+  );
+}
 ```
 
 # Fin del tercer post
