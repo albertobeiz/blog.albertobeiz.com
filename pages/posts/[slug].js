@@ -45,7 +45,7 @@ export default function Post({ post, preview }) {
                 tags={post.tags}
                 collection={post.collection}
               />
-              <PostBody content={post.content} />
+              <PostBody content={post.content} collection={post.collection} />
             </article>
           </>
         )}
