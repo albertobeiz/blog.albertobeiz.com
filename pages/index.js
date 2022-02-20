@@ -24,6 +24,7 @@ export default function Index({ allPosts }) {
 export async function getStaticProps() {
   const allPosts = getAllPosts([
     'title',
+    'subtitle',
     'date',
     'coverImage',
     'tags',
