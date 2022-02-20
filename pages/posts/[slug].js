@@ -38,7 +38,7 @@ export default function Post({ post, preview }) {
                 <meta
                   key="og:image"
                   property="og:image"
-                  content={post.coverImage}
+                  content={`https://www.albertobeiz.com/${post.coverImage}`}
                 />
               </Head>
               <PostHeader
