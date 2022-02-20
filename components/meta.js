@@ -32,10 +32,7 @@ export default function Meta() {
       <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
       <meta name="theme-color" content="#000" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      <meta
-        name="description"
-        content={`A statically generated blog example using Next.js and ${CMS_NAME}.`}
-      />
+      <meta name="description" content={`El blog de Alberto Beiztegui`} />
       <meta key="og:image" property="og:image" content={HOME_OG_IMAGE_URL} />
     </Head>
   );
