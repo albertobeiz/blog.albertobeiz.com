@@ -14,7 +14,7 @@ En mi día a día practico TDD en el backend, es un proceso que cada vez tengo m
 
 Pero ¿y el front? Programo el front con Angular o React normalmente y aunque intento testear las partes más importantes no soy ni de lejos igual de riguroso que en el back. Asi que voy a crear una pequeña aplicación que usaré para intentar llegar a ese punto, o al menos aprender mejores prácticas.
 
-> **Aviso** - esto va a ser más un cuaderno de notas que una serie de artículos rigurosos. No esperes largas explicaciones o justificaciones sobre cada decisión tomada, estoy en modo experimentación 😅 y por supuesto no es el post de un experto en el tema.
+> **Aviso** - esto va a ser más un cuaderno de notas que una serie de artículos rigurosos. No esperes largas explicaciones o justificaciones sobre cada decisión tomada, estoy en modo experimentación 😅.
 
 La aplicación que voy a crear es una lista de películas. Podremos ir añadiendo las que vamos viendo.
 

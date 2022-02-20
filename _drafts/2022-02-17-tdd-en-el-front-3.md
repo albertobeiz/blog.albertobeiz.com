@@ -18,7 +18,7 @@ Por fin tenemos funcionando todo el sistema de testing, tanto los de aceptación
 4. Implementar mediante TDD el código necesario para hacer pasar el step
 5. Volver al paso 2 hasta que el test de aceptación pase completamente
 
-> **Aviso** - esto es más un cuaderno de notas que una serie de artículos rigurosos. No esperes largas explicaciones o justificaciones sobre cada decisión tomada, estoy en modo experimentación 😅 y por supuesto no es el post de un experto en el tema.
+> **Aviso** - esto es más un cuaderno de notas que una serie de artículos rigurosos. No esperes largas explicaciones o justificaciones sobre cada decisión tomada, estoy en modo experimentación 😅.
 
 # La llamada a la API
 

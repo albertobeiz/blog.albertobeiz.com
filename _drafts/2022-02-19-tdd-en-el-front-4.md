@@ -12,7 +12,7 @@ collection: 'TDD en el front'
 
 Ya tenemos nuestros dos componentes con sus tests unitarios y funcionando como queremos, falta unirlo todo terminando nuestro test de aceptación.
 
-> **Aviso** - esto es más un cuaderno de notas que una serie de artículos rigurosos. No esperes largas explicaciones o justificaciones sobre cada decisión tomada, estoy en modo experimentación 😅 y por supuesto no es el post de un experto en el tema.
+> **Aviso** - esto es más un cuaderno de notas que una serie de artículos rigurosos. No esperes largas explicaciones o justificaciones sobre cada decisión tomada, estoy en modo experimentación 😅.
 
 # Arreglando el primer escenario
 

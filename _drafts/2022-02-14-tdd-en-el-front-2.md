@@ -14,7 +14,7 @@ En el post anterior montamos todo el sistema necesario para poder tener test de 
 
 Y es justo lo primero que vamos a hacer, he decidido usar React para esta prueba asi que ¡a montar nuestra app!
 
-> **Aviso** - esto es más un cuaderno de notas que una serie de artículos rigurosos. No esperes largas explicaciones o justificaciones sobre cada decisión tomada, estoy en modo experimentación 😅 y por supuesto no es el post de un experto en el tema.
+> **Aviso** - esto es más un cuaderno de notas que una serie de artículos rigurosos. No esperes largas explicaciones o justificaciones sobre cada decisión tomada, estoy en modo experimentación 😅.
 
 # Primer gran refactor
 
