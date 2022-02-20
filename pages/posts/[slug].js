@@ -22,7 +22,7 @@ export default function Post({ post, preview }) {
 
   useEffect(() => {
     Prism.highlightAll();
-  }, []);
+  }, [post]);
 
   return (
     <Layout preview={preview}>
