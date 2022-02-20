@@ -35,7 +35,11 @@ export default function Post({ post, preview }) {
             <article className="mb-32">
               <Head>
                 <title>{post.title} | Alberto Beiz</title>
-                <meta property="og:image" content={post.coverImage} />
+                <meta
+                  key="og:image"
+                  property="og:image"
+                  content={post.coverImage}
+                />
               </Head>
               <PostHeader
                 title={post.title}
