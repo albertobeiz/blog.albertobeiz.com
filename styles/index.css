@@ -37,10 +37,11 @@ code {
 .markdown-styles_markdown__h_8de h2 {
   font-weight: bold !important;
   font-size: 1.2rem !important;
+  margin-bottom: 0m !important;
 }
 
 .markdown-styles_markdown__h_8de p {
-  margin-top: 0.5rem !important;
+  margin-top: 0rem !important;
   margin-bottom: 2rem !important;
   font-size: 16px;
 }
@@ -63,6 +64,11 @@ code {
   margin-top: 0.5rem !important;
   list-style: decimal;
   list-style-position: inside !important;
+}
+
+.markdown-styles_markdown__h_8de ol ol {
+  margin-top: 0 !important;
+  padding-left: 40px;
 }
 
 .markdown-styles_markdown__h_8de #contenido-del-post {

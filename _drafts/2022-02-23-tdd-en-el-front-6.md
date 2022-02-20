@@ -19,8 +19,8 @@ Creo que va a cambiar mi forma de afrontar los problemas saber que puedo aplicar
 Si por ejemplo ahora quisiese añadir un botón para borrar un elemento:
 
 1. Creo el test de aceptación RemoveMovie.feature
-   1. Scenario un item -> debe salir empty state
-   2. Scenario varios items -> deben permanecer el resto de items
+   1. Escenario un item en la lista -> debe salir empty state
+   2. EScenario varios items -> deben permanecer el resto de items
 2. Creo el caso de uso RemoveMovieButton, test a test, algo así:
    1. Componente se renderiza
    2. Al hacer click -> se abre confirmación
@@ -55,4 +55,5 @@ He descubierto (tarde) que también hay testing library para Cypress, para mi si
 # Fin de la serie
 
 ¡Hasta aquí llegamos! He aprendido un montón de conceptos, procesos y tecnologías nuevas y he repasado otros que tenía algo oxidados.
-Espero que te haya gustado y para cualquier duda, comentario, sugerencia o simplemente charlar un rato mándame un [dm por Twitter](https://twitter.com/albertobeiz).
+
+Espero que te haya servido y para cualquier duda, comentario, sugerencia o simplemente charlar un rato mándame un [dm por Twitter](https://twitter.com/albertobeiz).
