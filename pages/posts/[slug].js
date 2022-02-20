@@ -57,6 +57,7 @@ export default function Post({ post, preview }) {
 export async function getStaticProps({ params }) {
   const post = getPostBySlug(params.slug, [
     'title',
+    'subtitle',
     'date',
     'slug',
     'tags',
