@@ -18,7 +18,7 @@ export default function PostPreview({
 
         <div>
           <h3 className="text-md tracking-tight">
-            <span className="font-semibold">{title}</span> -{' '}
+            <span className="font-semibold">{title}</span> {subtitle && '-'}{' '}
             <span className="text-sm text-gray-600">{subtitle}</span>
           </h3>
           <div className="text-xs text-gray-600">
