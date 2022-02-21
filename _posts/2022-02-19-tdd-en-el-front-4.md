@@ -204,7 +204,7 @@ npx cypress open
 
 Lanza los tests y cuando pasen puedes usar el formulario para añadir películas. Esto funciona gracias a tener la lista _movies_ en el archivo de los steps:
 
-![image](/images/cypress.png)
+![Cypress launcher](/images/cypress.png)
 
 ¡Y funciona todo! La primera carga, los loaders y el manejo de errores. Puedes dejar cypress abierto y jugar con los intercepts para ver todos los casos posibles.
 
