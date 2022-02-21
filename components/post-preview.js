@@ -23,22 +23,6 @@ export default function PostPreview({
           </h3>
           <div className="text-xs text-gray-600">
             <DateFormatter dateString={date} />
-            {collection && (
-              <span
-                key={collection.title}
-                className="px-4 pb-0.5 text-gray-500"
-              >
-                {collection.title}
-              </span>
-            )}
-            {tags?.map((tag) => (
-              <span
-                key={tag}
-                className="border border-gray-300 rounded-xl px-2 pb-0.5 text-gray-500 mr-1"
-              >
-                {tag}
-              </span>
-            ))}
           </div>
         </div>
       </div>
