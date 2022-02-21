@@ -2,7 +2,7 @@
 title: 'Como usar Tailwind v3 en Symfony v6'
 subtitle: 'Proceso de instalación en 2 minutos'
 coverImage: '/assets/blog/symfony.svg'
-date: '2022-01-01'
+date: '2022-02-24'
 tags: [tailwind, symfony]
 ---
 
