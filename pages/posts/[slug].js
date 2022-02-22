@@ -35,11 +35,6 @@ export default function Post({ post, preview }) {
             <article className="mb-32">
               <Head>
                 <title>{post.title} | Alberto Beiz</title>
-                <meta
-                  key="og:image"
-                  property="og:image"
-                  content={`https://www.albertobeiz.com/${post.coverImage}`}
-                />
               </Head>
               <PostHeader
                 title={post.title}

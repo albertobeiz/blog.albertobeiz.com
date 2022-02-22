@@ -36,7 +36,6 @@ export default function Meta() {
         name="description"
         content="Notas sobre programación, testing y buenas prácticas"
       />
-      <meta key="og:image" property="og:image" content={HOME_OG_IMAGE_URL} />
     </Head>
   );
 }
