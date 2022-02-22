@@ -8,7 +8,7 @@ tags: [tailwind, symfony]
 
 ### Contenido del Post
 
-# Como usar Tailwind v3 en Symfony v6
+# Tailwind y Symfony
 
 He tenido que instalar Tailwind en Symfony hace poco y la mayoría de posts y tutoriales que he visto tenía algún detalle que no funcionaba, seguramente por usar versiones anteriores. Asi que voy a documentar el proceso rápidamente.
 
