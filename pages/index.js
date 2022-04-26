@@ -24,30 +24,9 @@ export default function Index({ allPosts }) {
                   src="/images/alberto.png"
                 ></img>
               </div>
-              <SectionHeader>Clases de programación</SectionHeader>
+              <SectionHeader>Freelance developer</SectionHeader>
               <p className="mb-4">
-                Sesiones individuales para empezar a programar o mejorar tus
-                habilidades.
-              </p>
-              <ul className="list-inside list-disc mb-4 text-sm text-gray-700">
-                <li>Javascript & Typescript</li>
-                <li>React</li>
-                <li>Angular</li>
-                <li>Web3</li>
-                <li>Symfony PHP</li>
-                <li>Testing Front & Back</li>
-                <li>Avanzado: Hexagonal, CQRS, DDD...</li>
-              </ul>
-              <a
-                target={'_blank'}
-                className=" underline text-sm"
-                href="https://calendly.com/albertobeiz/tomadecontacto"
-              >
-                Reserva aquí tu toma de contacto gratuita
-              </a>
-              <p className="text-xs text-gray-500">
-                Precio por sesión: <span className="line-through">50€</span>{' '}
-                ¡25€ durante Abril!
+                Contacta conmigo para desarrollo de proyectos a medida.
               </p>
             </div>
           </div>
