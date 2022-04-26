@@ -26,8 +26,24 @@ export default function Index({ allPosts }) {
               </div>
               <SectionHeader>Freelance developer</SectionHeader>
               <p className="mb-4">
-                Contacta conmigo para desarrollo de proyectos a medida.
+                Contacta conmigo para desarrollo de proyectos a medida en:
               </p>
+              <ul className="list-inside list-disc mb-4 text-sm text-gray-700">
+                <li>Javascript & Typescript</li>
+                <li>React</li>
+                <li>Angular</li>
+                <li>Web3</li>
+                <li>Symfony PHP</li>
+                <li>Testing Front & Back</li>
+                <li>Avanzado: Hexagonal, CQRS, DDD...</li>
+              </ul>
+              <a
+                target={'_blank'}
+                className=" underline text-sm"
+                href="https://linkedin.com/in/albertobeiz"
+              >
+                Contacta por LinkedIn
+              </a>
             </div>
           </div>
         </Container>
