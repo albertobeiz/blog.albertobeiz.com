@@ -1,7 +1,6 @@
 ---
 title: 'Propósitos para el año 2022'
 coverImage: '/favicons/android-chrome-192x192.png'
-date: '2022-01-01'
 ---
 
 ### Contenido del Post

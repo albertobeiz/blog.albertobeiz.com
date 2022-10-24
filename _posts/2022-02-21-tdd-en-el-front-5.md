@@ -2,7 +2,6 @@
 title: 'TDD en el front 5'
 subtitle: 'Refactor a React Context'
 coverImage: '/assets/blog/js.svg'
-date: '2022-02-21'
 collection: 'TDD en el front'
 ---
 

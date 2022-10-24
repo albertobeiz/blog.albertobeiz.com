@@ -2,7 +2,6 @@
 title: 'TDD en el front 6'
 subtitle: 'Conclusiones'
 coverImage: '/assets/blog/js.svg'
-date: '2022-02-23'
 collection: 'TDD en el front'
 ---
 

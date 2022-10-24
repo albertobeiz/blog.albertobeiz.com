@@ -2,7 +2,6 @@
 title: 'TDD en el front 4'
 subtitle: 'Comunicación entre componentes'
 coverImage: '/assets/blog/js.svg'
-date: '2022-02-19'
 collection: 'TDD en el front'
 ---
 

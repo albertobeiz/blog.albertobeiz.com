@@ -2,7 +2,6 @@
 title: 'TDD en el front 3'
 subtitle: 'Mocks y Asíncronía'
 coverImage: '/assets/blog/js.svg'
-date: '2022-02-17'
 collection: 'TDD en el front'
 ---
 

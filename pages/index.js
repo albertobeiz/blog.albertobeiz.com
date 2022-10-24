@@ -26,12 +26,11 @@ export default function Index({ allPosts }) {
               </div>
               <SectionHeader>Freelance developer</SectionHeader>
               <p className="mb-4">
-                Contacta conmigo para desarrollo de proyectos a medida en:
+                Contacta conmigo para desarrollo de proyectos con:
               </p>
               <ul className="list-inside list-disc mb-4 text-sm text-gray-700">
                 <li>Javascript & Typescript</li>
                 <li>React</li>
-                <li>Angular</li>
                 <li>Web3</li>
                 <li>Symfony PHP</li>
                 <li>Testing Front & Back</li>
