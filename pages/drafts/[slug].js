@@ -34,7 +34,7 @@ export default function Post({ post, preview }) {
           <>
             <article className="mb-32">
               <Head>
-                <title>{post.title} | Alberto Beiz</title>
+                <title>{`${post.title} | Alberto Beiz`}</title>
                 <meta
                   key="og:image"
                   property="og:image"

@@ -34,7 +34,7 @@ export default function Post({ post, preview }) {
           <>
             <article className="mb-32">
               <Head>
-                <title>{post.title} | Alberto Beiz</title>
+                <title>{`${post.title} | Alberto Beiz`}</title>
               </Head>
               <PostHeader
                 title={post.title}

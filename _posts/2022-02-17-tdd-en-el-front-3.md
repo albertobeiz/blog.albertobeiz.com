@@ -23,7 +23,7 @@ Por fin tenemos funcionando todo el sistema de testing, tanto los de aceptación
 
 Algo que puede pasar, y pasa, es que nos demos cuenta de algo cuando ya tenemos el test pasando. Por ejemplo, no estamos comprobando que ocurra una llamada a la API para guardar la película. Tenemos que modificar un poco el step que ya teníamos en verde:
 
-```js
+```javascript
 When('I add a movie with name {string}', (movieName) => {
   cy.intercept({ url: '/movies/', method: 'POST' }, {}).as('postMovie');
 
