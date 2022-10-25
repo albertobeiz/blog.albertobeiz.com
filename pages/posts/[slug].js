@@ -13,6 +13,9 @@ import Prism from 'prismjs';
 import { useEffect } from 'react';
 import 'prismjs/components/prism-markup-templating.js';
 import 'prismjs/components/prism-php';
+import 'prismjs/plugins/toolbar/prism-toolbar.css';
+import 'prismjs/plugins/toolbar/prism-toolbar.js';
+import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.js';
 
 export default function Post({ post, preview }) {
   const router = useRouter();
